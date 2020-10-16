@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wjy.mapper.ActivityMapper">
+    <insert id="insertActivity" parameterType="activity">
+        insert into activity(activityName,activityDes,discount,fullPrice,reducePrice,fullNum,reduceNum) values(#{activityName},#{activityDes},#{discount},#{fullPrice},#{reducePrice},#{fullNum},#{reduceNum})
+    </insert>
+
+    <select id="queryActivity"  resultType="activity">
+        select * from activity
+    </select>
+    <select id="queryActivityById" parameterType="int" resultType="com.wjy.domain.Activity">
+        select * from activity where activityId = #{activityId}
+    </select>
+
+    <delete id="deleteActivity" parameterType="Integer">
+        delete from activity where activityId = #{activityId}
+    </delete>
+
+
+</mapper>

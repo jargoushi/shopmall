@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <!--连接池-->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--最大空闲数-->
+        <property name="maxIdle" value="50"/>
+        <!--最大连接数-->
+        <property name="maxTotal" value="100"/>
+        <!--最大等待时间-->
+        <property name="maxWaitMillis" value="20000"/>
+    </bean>
+
+    <!--工厂-->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <!--Redis服务地址-->
+        <property name="hostName" value="localhost"/>
+        <!--端口号-->
+        <property name="port" value="6379"/>
+        <!--如果有密码则需要配置密码-->
+        <!--<property name="password" value="password"/>-->
+        <!--连接池配置-->
+        <property name="poolConfig" ref="poolConfig"/>
+    </bean>
+
+    <!--使用字符串进行序列化-->
+    <bean id="stringReadisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+    <!--使用JDK的序列化器进行转化-->
+    <bean id="jdkSerializationRedisSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+
+    <!--redisTemplate-->
+    <bean id="redisTemplate"
+          class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"></property>
+        <property name="keySerializer" ref="stringReadisSerializer"/>
+        <property name="valueSerializer" ref="jdkSerializationRedisSerializer"/>
+    </bean>
+
+</beans>

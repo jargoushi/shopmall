@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wjy.mapper.AddressMapper">
+    <insert id="insertAddress" parameterType="com.wjy.domain.Address">
+        insert into address(userId,province,city,county,detailAddr,conName,conTel) values(#{userId},#{province},#{city},#{county},#{detailAddr},#{conName},#{conTel})
+    </insert>
+    <update id="updateAddress" parameterType="com.wjy.domain.Address">
+        update address set province=#{province},city=#{city},county=#{county},detailAddr=#{detailAddr},conName=#{conName},conTel=#{conTel} where addressID=#{addressID}
+    </update>
+    <delete id="deleteAddress" parameterType="com.wjy.domain.Address">
+        delete from address where addressID = #{addressID}
+    </delete>
+
+    <select id="queryAddressById" parameterType="int" resultType="address">
+        select * from address where    addressID = #{addressId}
+    </select>
+    <select id="queryAddressByUserId" parameterType="int" resultType="com.wjy.domain.Address">
+        select * from address where userId = #{userId}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wjy.mapper.OrderMapper">
+    <update id="updateOrder" parameterType="int">
+        update indent set isReceive = 1,isComplete = 1 where orderId = #{orderId}
+    </update>
+    <delete id="deleteOrder" parameterType="int">
+        delete from indent where orderId = #{orderId}
+    </delete>
+
+    <select id="queryOrders"  parameterType="map" resultType="order">
+        select * from indent
+        <where>
+            <if test="send != null">
+                isSend = #{send}
+            </if>
+            <if test="receive != null">
+                isReceive = #{receive}
+            </if>
+            <if test="complete != null">
+                isComplete = #{complete}
+            </if>
+        </where>
+    </select>
+    <select id="queryOrderBuUserId" parameterType="int" resultType="com.wjy.domain.Order">
+        select * from indent where userId = #{userId}
+    </select>
+
+
+</mapper>

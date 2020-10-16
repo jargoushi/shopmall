@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wjy.mapper.GoodsMapper">
+
+    <select id="queryGoods" resultType="goods">
+        select * from goods
+    </select>
+
+    <update id="updateGoods" parameterType="goods">
+        update goods set goodsName = #{goodsName}, price = #{price}, num = #{num},
+        upTime = #{upTime}, category = #{category}, detailCate = #{detailCate}, description = #{description}
+        where goodsId = #{goodsId}
+    </update>
+
+    <insert id="insertGoods" parameterType="goods" useGeneratedKeys="true" keyProperty="goodsId">
+        insert into goods(goodsName,price,num,upTime,category,detailCate,description) values(#{goodsName},#{price},#{num},#{upTime},#{category},#{detailCate},#{description})
+    </insert>
+
+    <delete id="deleteGoods" parameterType="int">
+        delete from goods where goodsId = #{goodsId}
+    </delete>
+
+    <update id="updateActivityId" parameterType="Integer">
+        update goods set activityId = #{activityId} where goodsId = #{goodsId}
+    </update>
+
+    <select id="queryGoodsById" parameterType="int" resultType="goods">
+        select * from goods where goodsId =#{goodsId}
+    </select>
+    <select id="queryGoodsByCategory" resultType="com.wjy.domain.Goods">
+        select * from goods where category = #{cateId}
+    </select>
+    <select id="queryGoodsByGoodsId" parameterType="int" resultType="com.wjy.domain.Goods">
+        select * from goods where goodsId =#{goodsId}
+    </select>
+    <select id="queryGoodsByName" parameterType="String" resultType="com.wjy.domain.Goods">
+        select * from goods where goodsName like concat ('%',#{keyword},'%')
+    </select>
+
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wjy.mapper.RegisterMapper">
+    <insert id="insertUser" parameterType="user">
+        insert into user(userName, passWord, regTime, email, telephone) values( #{userName}, #{passWord}, #{regTime}, #{email}, #{telephone})
+    </insert>
+
+
+    <select id="queryUser" parameterType="user" resultType="com.wjy.domain.User">
+        select * from user where userName = #{userName}
+    </select>
+</mapper>
